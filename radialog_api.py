@@ -60,7 +60,7 @@ def _run_llava_with_ollama(image: Image.Image, prompt: str) -> str:
             )
             return res.stdout.strip()
         except subprocess.CalledProcessError as e:
-            return f"⚠️ LLaVA Error: {e.stderr or str(e)}"
+            return f"LLaVA Error: {e.stderr or str(e)}"
 
 
 
@@ -81,7 +81,7 @@ Important:
         img = _pil_from_bytes(base64.b64decode(image_b64))
         return _run_llava_with_ollama(img, prompt)
     else:
-        return "⚠️ RaDialog backend not wired yet. Use RADIALOG_BACKEND=ollama_llava."
+        return " RaDialog backend not wired yet. Use RADIALOG_BACKEND=ollama_llava."
 
 
 def _chat_turn(conv: Dict[str, Any], user_msg: str) -> str:
@@ -117,7 +117,7 @@ Return only the revised report (or direct answer if it's a question).
             _pil_from_bytes(base64.b64decode(conv["image_b64"])), edit_prompt
         )
     else:
-        return "⚠️ RaDialog backend not wired yet."
+        return " RaDialog backend not wired yet."
 
 
 def _qa_turn(conv: Dict[str, Any], question: str) -> str:
@@ -147,7 +147,7 @@ If uncertain, state limitations.
             _pil_from_bytes(base64.b64decode(conv["image_b64"])), qa_prompt
         )
     else:
-        return "⚠️ RaDialog backend not wired yet."
+        return " RaDialog backend not wired yet."
 
 
 
@@ -194,3 +194,4 @@ async def report_qa(conversation_id: str = Form(...), question: str = Form(...))
         return JSONResponse({"answer": reply})
     except Exception as e:
         return JSONResponse({"error": str(e)}, status_code=500)
+
