@@ -67,18 +67,18 @@ with col1:
             annotated = draw_predictions(img_cv, result)
             st.session_state.annotated = annotated
             st.session_state.findings = extract_findings(result["predictions"][0])
-            st.image(annotated, caption="✅ Tumor Detected (Annotated)", use_column_width=True)
+            st.image(annotated, caption=" Tumor Detected (Annotated)", use_column_width=True)
         else:
             st.session_state.annotated = cv2.cvtColor(img_cv, cv2.COLOR_BGR2RGB)
             st.session_state.findings = "No obvious tumor"
-            st.warning("⚠️ No tumor detected.")
+            st.warning("No tumor detected.")
             st.image(st.session_state.annotated, caption="MRI (No tumor detected)", use_column_width=True)
 
 with col2:
-    st.subheader("📋 Radiology Report (Interactive)")
+    st.subheader(" Radiology Report (Interactive)")
 
 
-    if st.button("📝 Generate Initial Report"):
+    if st.button(" Generate Initial Report"):
         if st.session_state.annotated is None:
             st.error("No annotated image yet.")
         else:
@@ -118,7 +118,7 @@ with col2:
                 st.error(f"API error: {e}")
 
     
-    qa_input = st.text_input("💬 Ask a question about this report:", key="qa_input")
+    qa_input = st.text_input("Ask a question about this report:", key="qa_input")
     if st.button("Ask Question"):
         if qa_input and st.session_state.conv_id and st.session_state.annotated is not None:
             try:
@@ -138,8 +138,9 @@ with col2:
 
     
     if st.session_state.qa_history:
-        st.subheader("💡 Q&A about Report")
+        st.subheader("Q&A about Report")
         for i, qa in enumerate(st.session_state.qa_history, 1):
             st.markdown(f"**Q{i}:** {qa['question']}")
             st.markdown(f"**A{i}:** {qa['answer']}")
             st.markdown("---")
+
